@@ -61,6 +61,11 @@ class Flay
         options[:summary] = true
       end
 
+      opts.on("-l", "--limit LIMIT",
+        "Reject files over LIMIT size in bytes.") do |limit|
+        options[:limit] = limit
+      end
+
       extensions = ['rb'] + Flay.load_plugins
 
       opts.separator ""
@@ -128,6 +133,8 @@ class Flay
   def process(*files) # TODO: rename from process - should act as SexpProcessor
     files.each do |file|
       warn "Processing #{file}" if option[:verbose]
+
+      next if option[:limit] && option[:limit].to_i < File::Stat.new(file).size
 
       ext = File.extname(file).sub(/^\./, '')
       ext = "rb" if ext.nil? || ext.empty?
