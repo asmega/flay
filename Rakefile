@@ -8,6 +8,7 @@ Hoe::add_include_dirs("../../sexp_processor/dev/lib",
                       "../../ruby2ruby/dev/lib")
 
 Hoe.plugin :seattlerb
+Hoe.plugin :gemspec
 
 Hoe.spec 'flay' do
   developer 'Ryan Davis', 'ryand-ruby@zenspider.com'
